@@ -2,112 +2,68 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
 
-  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+  <link rel="stylesheet" href="style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
 
-  <!-- <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style> -->
-
-
-
- <!-- Meta Pixel Code -->
-<!-- <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '33193166620329142');
-fbq('track', 'PageView');
-fbq('track', 'Lead');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=33193166620329142&ev=PageView&noscript=1"
-/></noscript> -->
-<!-- End Meta Pixel Code -->
-
-
-
-  <script>
-  const form = document.querySelector('form'); // Make sure you have a <form> tag
-  
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevents page refresh
-    
-    // Get the email value for Advanced Matching
-    const emailInput = document.querySelector('input[type="email"]').value;
-
-    // 🔥 THIS IS THE EVENT THAT WILL FIX YOUR WARNING
-    fbq('track', 'Lead', {
-      content_name: 'Practice Lead Form',
-      status: 'success'
-    }, { em: emailInput });
-
-    alert('Lead Sent! Check your Meta Events Manager now.');
-    console.log('Lead Event Fired Successfully');
-  });
-</script>
-  
+  <!-- <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style> -->
 </head>
 
 <body>
-  <main class="whole-page">
-    <section>
-      <div class="header-img">
-        <!-- <img src="assets/images/illustration-sign-up-mobile.svg" alt=""> -->
-      </div>
-    </section>
+  <main class="whole-page">
+    <section>
+      <div class="header-img">
+        <!-- <img src="assets/images/illustration-sign-up-mobile.svg" alt=""> -->
+      </div>
+    </section>
 
-    <section id="main-area">
-      <div class="text-area">
-        <h1>Stay updated!</h1>
-        <p>Join 60,000+ product managers receiving monthly updates on:</p>
-        <ul>
-          <li>Product discovery and building what matters</li>
-          <li>Measuring to ensure updates are a success</li>
-          <li>And much more!</li>
-        </ul>
-      </div>
+    <section id="main-area">
+      <div class="text-area">
+        <h1>Stay updated!</h1>
+        <p>Join 60,000+ product managers receiving monthly updates on:</p>
+        <ul>
+          <li>Product discovery and building what matters</li>
+          <li>Measuring to ensure updates are a success</li>
+          <li>And much more!</li>
+        </ul>
+      </div>
 
-      <div class="input-area">
-        <p>Email address</p>
-        <!-- <label for="email">Email address</label> -->
-        <input type="email" id="emailInput" placeholder="email@company.com">
-        <p id="errorMessage" class="error-message"></p>
-        <button id="submitBtn">Subscribe to monthly newsletter</button>
-      </div>
-    </section>
-  </main>
+      <div class="input-area">
+        <p>Email address</p>
+        <!-- <label for="email">Email address</label> -->
+        <input type="email" id="emailInput" placeholder="email@company.com">
+        <p id="errorMessage" class="error-message"></p>
+        <button id="submitBtn">Subscribe to monthly newsletter</button>
+      </div>
+    </section>
+  </main>
 
-  <!-- Success message section -->
-  <div id="successMessage" class="success-message hidden">
-    <div class="success-content">
-      <img src="./assets/images/icon-success.svg" alt="Success icon">
-      <h2>Thanks for subscribing!</h2>
-      <p>A confirmation email has been sent to <span id="emailDisplay"></span></p>
-      <p>Please open it and click the button inside to confirm your subscription.</p>
-      <button id="dismissBtn">Dismiss message</button>
-    </div>
-  </div>
+  <!-- Success message section -->
+  <div id="successMessage" class="success-message hidden">
+    <div class="success-content">
+      <img src="./assets/images/icon-success.svg" alt="Success icon">
+      <h2>Thanks for subscribing!</h2>
+      <p>A confirmation email has been sent to <span id="emailDisplay"></span></p>
+      <p>Please open it and click the button inside to confirm your subscription.</p>
+      <button id="dismissBtn">Dismiss message</button>
+    </div>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
@@ -133,9 +89,9 @@ src="https://www.facebook.com/tr?id=33193166620329142&ev=PageView&noscript=1"
 
 <!-- Thanks for subscribing!
 
-  A confirmation email has been sent to ash@loremcompany.com.
-  Please open it and click the button inside to confirm your subscription.
+  A confirmation email has been sent to ash@loremcompany.com.
+  Please open it and click the button inside to confirm your subscription.
 
-  Dismiss message -->
+  Dismiss message -->
 
 <!-- Success message end -->
