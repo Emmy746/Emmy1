@@ -1,80 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-
-  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+  <title>Newsletter Sign-Up | Meta Pixel Practice</title>
   <link rel="stylesheet" href="style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-
-  <!-- <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style> -->
-
-
-
- <!-- Meta Pixel Code -->
-<!-- <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '33193166620329142');
-fbq('track', 'PageView');
-fbq('track', 'Lead');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=33193166620329142&ev=PageView&noscript=1"
-/></noscript> -->
-<!-- End Meta Pixel Code -->
-
-
-
   <script>
-  const form = document.querySelector('form'); // Make sure you have a <form> tag
-  
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevents page refresh
-    
-    // Get the email value for Advanced Matching
-    const emailInput = document.querySelector('input[type="email"]').value;
-
-    // 🔥 THIS IS THE EVENT THAT WILL FIX YOUR WARNING
-    fbq('track', 'Lead', {
-      content_name: 'Practice Lead Form',
-      status: 'success'
-    }, { em: emailInput });
-
-    alert('Lead Sent! Check your Meta Events Manager now.');
-    console.log('Lead Event Fired Successfully');
-  });
-</script>
-  
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '33193166620329142');
+    fbq('track', 'PageView');
+  </script>
 </head>
 
 <body>
   <main class="whole-page">
-    <section>
-      <div class="header-img">
-        <!-- <img src="assets/images/illustration-sign-up-mobile.svg" alt=""> -->
-      </div>
-    </section>
-
     <section id="main-area">
       <div class="text-area">
         <h1>Stay updated!</h1>
@@ -82,60 +30,64 @@ src="https://www.facebook.com/tr?id=33193166620329142&ev=PageView&noscript=1"
         <ul>
           <li>Product discovery and building what matters</li>
           <li>Measuring to ensure updates are a success</li>
-          <li>And much more!</li>
         </ul>
       </div>
 
-      <div class="input-area">
+      <form id="newsletterForm" class="input-area">
         <p>Email address</p>
-        <!-- <label for="email">Email address</label> -->
-        <input type="email" id="emailInput" placeholder="email@company.com">
+        <input type="email" id="emailInput" placeholder="email@company.com" required>
         <p id="errorMessage" class="error-message"></p>
-        <button id="submitBtn">Subscribe to monthly newsletter</button>
-      </div>
+        <button type="submit" id="submitBtn">Subscribe to monthly newsletter</button>
+      </form>
     </section>
   </main>
 
-  <!-- Success message section -->
   <div id="successMessage" class="success-message hidden">
     <div class="success-content">
-      <img src="./assets/images/icon-success.svg" alt="Success icon">
       <h2>Thanks for subscribing!</h2>
       <p>A confirmation email has been sent to <span id="emailDisplay"></span></p>
-      <p>Please open it and click the button inside to confirm your subscription.</p>
       <button id="dismissBtn">Dismiss message</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const newsletterForm = document.getElementById('newsletterForm');
+    const emailInput = document.getElementById('emailInput');
+    const successMessage = document.getElementById('successMessage');
+    const emailDisplay = document.getElementById('emailDisplay');
+
+    newsletterForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const emailValue = emailInput.value;
+
+      // 1. ATTEMPT TO SEND TO RENDER
+      try {
+        // Change this URL once your Render service is live!
+        const response = await fetch('https://YOUR-RENDER-URL.onrender.com/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailValue })
+        });
+
+        if (response.ok) {
+          // 2. FIRE THE PIXEL ONLY ON SUCCESS
+          fbq('track', 'Lead', {
+            content_name: 'Newsletter Signup',
+            status: 'success'
+          }, { em: emailValue });
+
+          // 3. SHOW UI SUCCESS
+          emailDisplay.innerText = emailValue;
+          successMessage.classList.remove('hidden');
+          console.log('Backend received lead & Pixel fired!');
+        }
+      } catch (error) {
+        console.error('Backend offline. Firing Pixel anyway for practice...');
+        // Fallback for testing if your backend isn't up yet
+        fbq('track', 'Lead', { status: 'fallback_fire' });
+        successMessage.classList.remove('hidden');
+      }
+    });
+  </script>
 </body>
-
 </html>
-
-
-
-
-<!-- Sign-up form start -->
-
-
-
-
-
-
-
-
-
-
-
-<!-- Sign-up form end -->
-
-<!-- Success message start -->
-
-<!-- Thanks for subscribing!
-
-  A confirmation email has been sent to ash@loremcompany.com.
-  Please open it and click the button inside to confirm your subscription.
-
-  Dismiss message -->
-
-<!-- Success message end -->
