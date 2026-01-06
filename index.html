@@ -25,7 +25,7 @@
 
 
  <!-- Meta Pixel Code -->
-<script>
+<!-- <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -40,8 +40,30 @@ fbq('track', 'Lead');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=33193166620329142&ev=PageView&noscript=1"
-/></noscript>
+/></noscript> -->
 <!-- End Meta Pixel Code -->
+
+
+
+  <script>
+  const form = document.querySelector('form'); // Make sure you have a <form> tag
+  
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents page refresh
+    
+    // Get the email value for Advanced Matching
+    const emailInput = document.querySelector('input[type="email"]').value;
+
+    // 🔥 THIS IS THE EVENT THAT WILL FIX YOUR WARNING
+    fbq('track', 'Lead', {
+      content_name: 'Practice Lead Form',
+      status: 'success'
+    }, { em: emailInput });
+
+    alert('Lead Sent! Check your Meta Events Manager now.');
+    console.log('Lead Event Fired Successfully');
+  });
+</script>
   
 </head>
 
